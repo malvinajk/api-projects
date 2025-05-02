@@ -112,25 +112,21 @@ fetch(ingredients)
     })
     .then(data => {
         ingredientsList = data.drinks
-        // console.log(ingredientsList)
-        // const ingArray = [];
+
         for(let i = 0; i < ingredientsList.length; i++){
-            let name = ingredientsList[i].strIngredient1
-            // console.log(name)
-            // ingArray.push(name);
+            let name = ingredientsList[i].strIngredient1;
             const option = document.createElement("option")
             option.value = name
             option.innerText = name
             select.appendChild(option)
         }
 
-        // console.log(ingArray)
     })
 
 select.addEventListener("change", event => {
     const ingredient = event.target.value;
 
-    // First: fetch cocktails with that ingredient (basic info only)
+    // Fetch list of cocktails by ingredient
     fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`)
         .then(res => res.json())
         .then(data => {
@@ -139,21 +135,20 @@ select.addEventListener("change", event => {
                 return;
             }
 
-            // Get the first drink's ID from the list
-            const firstDrinkId = data.drinks[0].idDrink;
+            // Fetch full details for each drink by ID
+            const drinkDetailPromises = data.drinks.map(drink =>
+                fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`)
+                    .then(res => res.json())
+                    .then(detailData => detailData.drinks[0]) // grab the full drink object
+            );
 
-            // Now: fetch full cocktail details using that ID
-            return fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${firstDrinkId}`);
+            // Wait for all full drink data to load
+            return Promise.all(drinkDetailPromises);
         })
-        .then(res => {
-            if (!res) return;
-            return res.json();
-        })
-        .then(data => {
-            if (!data || !data.drinks) return;
+        .then(fullDrinks => {
+            if (!fullDrinks || fullDrinks.length === 0) return;
 
-            // Overwrite the global drinks array and display
-            drinks = data.drinks;
+            drinks = fullDrinks;
             currentIndex = 0;
             displayDrink(currentIndex);
         })
@@ -161,6 +156,7 @@ select.addEventListener("change", event => {
             console.log("Error fetching cocktail by ingredient:", err);
         });
 });
+
 
 
 
