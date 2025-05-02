@@ -21,7 +21,7 @@ img{
 html {
   font-size: 1.1rem;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  background-color:mistyrose ;
+  background-color:antiquewhite;
 }
 
 span {
@@ -42,8 +42,8 @@ span {
 
 .first-col {
   height: 98vh;
-  background-color:black;
-  color: mistyrose;
+  background-color:rgb(30, 29, 29);
+  color: antiquewhite;
   border-radius: 15px;
 }
 
