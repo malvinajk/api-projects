@@ -1,6 +1,6 @@
 # COCKTAIL SEARCH APPLICATION
 
-A simple web app that lets you search for a cocktail by name or ingredient. Fetches real time data using TheCocktailDB API, showing drink names, images, ingredients and instructions. Cheers! 🥂
+A simple web app that lets you search for a cocktail by name or ingredient. Fetches real time data using TheCocktailDB API, showing drink names, images, ingredients and instructions.
 
   ## FEATURES:
 
