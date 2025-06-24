@@ -20,14 +20,16 @@ html {
     flex: 1;
     box-shadow: #edff90 5px 5px 40px,
                 #edff90 5px -5px 40px;
-    
-    
+    overflow-y: scroll;
+    scrollbar-width: none;  
 }
 
 #left-panel {
     width: 50%;
     box-shadow: #edff90 -5px -5px 40px,
                 #edff90 -5px 5px 40px;
+    overflow-y: scroll;
+    scrollbar-width: none;
 
 }
 
